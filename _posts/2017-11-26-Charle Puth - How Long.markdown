@@ -1,3 +1,12 @@
+---
+layout: post
+title: Charlie Puth - How Long (음악, 가사, 뮤직비디오)
+date: 2017-11-26 21:46:00 +0300
+description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
+img: charlieputh_nine.jpg # Add image post (optional)
+tags: music, lyrics, music video # add tag
+---
+
 # [음악, 가사, 뮤직비디오] Charlie Puth - How Long
 <iframe width="560" height="315" src="https://www.youtube.com/embed/CwfoyVa980U" frameborder="0" allowfullscreen></iframe>
 
