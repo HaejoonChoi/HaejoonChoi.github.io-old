@@ -31,7 +31,7 @@ discus-identifier: mr-brown # add your discus identifier
 analytics: # Google Analytics
 
 # Build Settings
-markdown: kramdown
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 plugins_dir:
   - jekyll-sitemap
   - jekyll-paginate
