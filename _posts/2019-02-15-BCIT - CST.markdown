@@ -1,15 +1,13 @@
 ---
 layout: post
-title: Charlie Puth - How Long (음악, 가사, 뮤직비디오)
-date: 2017-11-26 21:46:00 +0300
+title: Long time no post
+date: 2019-02-15 12:20:00 -0800
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
 img: charlieputh_nine.jpg # Add image post (optional)
 tags: Music Lyrics MusicVideo # add tag
 ---
 
-# [음악, 가사, 뮤직비디오] Charlie Puth - How Long
-<iframe width="560" height="315" src="https://www.youtube.com/embed/CwfoyVa980U" frameborder="0" allowfullscreen></iframe>
-
+# BCIT
 ## Lyrics
 **Alright**  
 **Ooh, yeah**  
@@ -53,7 +51,7 @@ tags: Music Lyrics MusicVideo # add tag
 **You're the only I wanna love, oh, yeah**  
 네가 내가 유일하게 사랑하는 사람이야,  
 **She said "Boy, tell me honestly" (honestly)**  
-  
+
 **She said, "Boy, tell me honestly**  
 그녀는 "솔직하게 한 번 말해봐" 라고 했지  
 **Was it real or just for show?", yeah**  
