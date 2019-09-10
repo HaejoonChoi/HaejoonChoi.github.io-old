@@ -2,7 +2,7 @@
 
 layout: post
 
-title: [JAVA] Object Oriented Programming -  Inheritance, Composition, Final Modifier
+title: Object Oriented Programming [JAVA] - Inheritance, Composition, Final Modifier
 
 date: 2019-09-10 14:53:00 -0700
 
