@@ -8,7 +8,7 @@ date: 2019-09-10 14:53:00 -0700
 
 description: You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
 
-img: haroopad.png # Add image post (optional)
+img:  # Add image post (optional)
 
 tags:  # add tag
 
