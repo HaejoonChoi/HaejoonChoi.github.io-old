@@ -10,7 +10,7 @@ title: Procedural Programming [C] - Arrays
 
 
 
-date: 2019-09-17 13:40:20 -0700
+date: 2019-09-07 13:40:20 -0700
 
 
 
