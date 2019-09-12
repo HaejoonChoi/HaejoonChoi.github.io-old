@@ -104,11 +104,15 @@ void str_uppercase(char s[]) {
 
 test: 
 	i) str_uppercase("hello"); 
+		>> segmentation fail
 		/* X WRONG; Can't change string constant; Leads to undefined behaviour */
+
 
 	ii) char s[] = "hello";
 			str_uppercase(s);
 		
     /* Works fine; */
 ```
+
+
 
