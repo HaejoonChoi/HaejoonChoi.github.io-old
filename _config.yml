@@ -10,7 +10,8 @@ site-twitter: #if your site has a twitter account, enter it here
 # Author Settings
 author: Haejoon Choi # add your name
 author-img: haejoon-choi.jpg # add your photo
-about-author: BCIT CST 2nd term student. Studied 3D Printing for my master's degree.<br><br>
+about-author: |
+    BCIT CST 2nd term student. Studied 3D Printing for my master's degree.<br><br>
     Keyword : Movie geek, music lover, travel enthusiast, tech addict, starbucks barista.
 
 twitter: # add your Twitter handle
