@@ -342,3 +342,125 @@ char s[100];
 // m: unchanged, a: EOF
 ```
 
+
+
+```c
+#include <stdio.h>
+#define LINESIZE 1024
+
+int main(void) {
+	char line[LINESIZE];
+	int n, sum = 0;
+  
+	while (1) {
+		printf("Enter an integer: ");
+		if(!fgets(line, LINESIZE, stdin)) { // if you can't get a line, just stop
+			clearerr(stdin); 
+      // clear the error condition to get back to the normal behavior again
+      break;
+    }
+    if (sscanf(line, "%d", &n)) {
+      sum += n;
+    }
+  } 
+  printf("The sum is "%d\n", sum);
+	return 0;
+}
+```
+
+For interactive input, always use `fgets` possibly followed by `sscanf`.
+
+
+
+### Example: Summating integers from user
+
+```c
+#define LINESIZE 1024
+
+char line[LINESIZE];
+int n, sum = 0;
+while (1) {
+	printf("Enter an integer: ");
+  if (!fgets(line, LINESIZE, stdin)) {
+    clearerr(stdin);
+    break;
+  }
+  if (sscanf(line, "%d", &n) == 1)
+    /* if there's no "== 1" part, EOF can be read (EOF 			has value (-1)), then the previous n value will be 			added again */
+    sum += n;
+}
+printf("%d\n", sum);
+```
+
+
+
+## File I/O (fopen, fclose, fprintf, fscanf, etc.)
+
+3 steps:
+
+1. Open the file
+2. Perform I/O (on the stream returned by opening the file)
+3. Close the file (close the stream, actually)
+
+
+
+### Opening a file
+
+- This associates a stream (`type: FILE *`) with the file.
+
+  #### Standard idiom to open a file 
+
+  ```c
+  FILE *fp; /* fp = file pointer */     
+  	if ( fp = fopen(filename, mode) == 0) {
+      /* 0 means null pointer = fopen failed */ 
+      perror("fopen");
+      /* additional error-handling if needed */
+    }
+  ```
+
+- `perror` is used to print a system error message to stderr.
+
+  - It only works if a call to a library function fails & that function sets `errno` (you can think of `errno` as  a global intger variable, when certain function fail, they store an error number into it.)
+
+- `filename` is just a string. Need to careful when using Windows:
+
+  ef. `"C:\newfile.txt"`    `"C:\\\newfile.txt"`
+
+  - `\n` can be interpreted as newline.
+
+- `mode` is the open mode. 
+
+  - 12 different modes divided into 2 groups of 6: 
+
+    6 text modes & 6 binary modes.
+
+  Note: No difference between text &  binary modes in UNIX (ef. Linux, MacOS)
+
+  - Text modes:
+
+    `"r"`    open for reading (file must exist)
+
+    `"r+"`  open for both reading & writing (file must exist)
+
+    `"w"`	create or truncate file for writing
+
+    `"w+"`  create or truncate file for both reading & writing
+
+    `"a"`    create or open file for writing, always writing at the end.
+
+    `"a+"`  create or open file for reading & writing, always writing at the end.
+
+  - Corresponding binary modes: 
+
+    `"rb"`, `"rb+" === "r+b"`, `"wb"`, `"wb+" === "w+b"`, `"ab"`, `"ab+" === "a+b"`
+
+  - *text* vs *binary* mode in Windows:
+
+    ​                     **file content**                **C Program**
+
+    Text mode: `'\r'` `'\n'`    <----->  `'\n'`
+
+    ​	                                  x     <----->  x    (all other characters)
+
+    - Special handling of newline character in text mode in Windows.
