@@ -1,7 +1,6 @@
 ---
 
 
-
 layout: post
 
 
@@ -24,9 +23,8 @@ img: # Add image post (optional)
 
 tags:  # add tag
 
-
-
 ---
+
 
 # Input / Output (I/O)
 
@@ -406,61 +404,321 @@ printf("%d\n", sum);
 
 ### Opening a file
 
-- This associates a stream (`type: FILE *`) with the file.
+This associates a stream (`type: FILE *`) with the file.
 
-  #### Standard idiom to open a file 
+#### Standard idiom to open a file 
 
-  ```c
-  FILE *fp; /* fp = file pointer */     
-  	if ( fp = fopen(filename, mode) == 0) {
-      /* 0 means null pointer = fopen failed */ 
-      perror("fopen");
-      /* additional error-handling if needed */
+```c
+FILE *fp; /* fp = file pointer */     
+	if ( fp = fopen(filename, mode) == 0) {
+    /* 0 means null pointer = fopen failed */ 
+    perror("fopen");
+    /* additional error-handling if needed */
+  }
+```
+
+`perror` is used to print a system error message to stderr.
+
+- It only works if a call to a library function fails & that function sets `errno` (you can think of `errno` as  a global intger variable, when certain function fail, they store an error number into it.)
+
+`filename` is just a string. Need to careful when using Windows:
+
+if. `"C:\newfile.txt"`    `"C:\\\newfile.txt"`
+
+- `\n` can be interpreted as newline.
+
+`mode` is the open mode. 
+
+- 12 different modes divided into 2 groups of 6: 
+
+  6 text modes & 6 binary modes.
+
+Note: No difference between text &  binary modes in UNIX (ef. Linux, MacOS)
+
+- Text modes:
+
+  `"r"`    open for reading (file must exist)
+
+  `"r+"`  open for both reading & writing (file must exist)
+
+  `"w"`	create or truncate file for writing
+
+  `"w+"`  create or truncate file for both reading & writing
+
+  `"a"`    create or open file for writing, always writing at the end.
+
+  `"a+"`  create or open file for reading & writing, always writing at the end.
+
+- Corresponding binary modes: 
+
+  `"rb"`, `"rb+" === "r+b"`, `"wb"`, `"wb+" === "w+b"`, `"ab"`, `"ab+" === "a+b"`
+
+- *text* vs *binary* mode in Windows:
+
+  ​                     **file content**                **C Program**
+
+  Text mode: `'\r'` `'\n'`    <----->  `'\n'`
+
+  ​	                                  x     <----->  x    (all other characters)
+
+  - Special handling of newline character in text mode in Windows.
+
+
+
+### Closing a file
+
+This disassociate the stream with the file.
+
+#### Standard idiom to close a file 
+
+```c
+if (fclose(fp) != 0) { /* fclose failed */ 
+	perror("fclose");
+	/* additional error-handling if needed */
+}
+```
+
+
+
+### Reading & Writing to a file
+
+-   `fprintf`, `fputc`
+
+-   `fscanf`, `fgets`, `fgetc`
+
+```c
+ef.
+int c;
+while((c = fgets(ifp)) != EOF) /* ifp: input stream */ 
+	fputc(c, ofp);
+   /* ofp: output stream */ 
+```
+
+```c
+ef. Summating integers read from a file.
+int n, sum = 0; /* content of file: 123 456 -13 .... */
+while((fscanf(fp, "%d", &n)) == 1 ){ /* fp: input stream */
+	sum += n;
+}
+
+    
+  
+```
+
+
+
+#### Reading and summating integers from a file
+
+##### Ver1.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+	FILE *fp;
+	int n, sum = 0;
+	
+	if((fp = fopen("integers.txt", "r")) == 0){
+		perror("fopen");
+		return 1;
+  }
+  while(fscanf(fp, "%d", &n) ==1)
+    sum += n;
+
+  printf("%d\n", sum);
+
+  if(fclose(fp) != 0){
+    perror("fclose");
+    return 2;
+  }
+  return 0;
+}
+```
+
+
+
+##### Ver2.
+
+```c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+	FILE *fp;
+	int n, sum = 0;
+	
+	if((fp = fopen(argv[1], "r")) == 0){
+		perror("fopen");
+		return 1;
+  }
+  while(fscanf(fp, "%d", &n) ==1)
+    sum += n;
+
+  printf("%d\n", sum);
+
+  if(fclose(fp) != 0){
+    perror("fclose");
+    return 2;
+  }
+  return 0;
+}
+```
+
+
+
+##### Ver3. 
+
+```c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+	FILE *fp;
+	int n, sum = 0;
+
+  if (argc != 2){
+    fprintf(stderr, "usage: %s {filename}\n", argv[0]);
+    return 1;
+  }
+  
+	if((fp = fopen(argv[1], "r")) == 0){
+		perror("fopen");
+		return 1;
+  }
+  while(fscanf(fp, "%d", &n) ==1)
+    sum += n;
+
+  printf("%d\n", sum);
+
+  if(fclose(fp) != 0){
+    perror("fclose");
+    return 2;
+  }
+  return 0;
+}
+```
+
+
+
+
+
+#### Program to copy a file
+
+```c
+#include <stdio.h>
+
+int main(int argc, char *argv[]){
+	FILE *ifp, *ofp; /* note: * is repeated */
+    int c;
+    
+    if(argc != 3){
+        fprintf(stderr, "usage: %s {source} {destination}\n", argv[0]);
+        return 1;
     }
-  ```
+    if((ifp = fopen(argv[1], "rb"))==0){
+        perror("fopen");
+        return 2;
+    }
+    if((ofp = fopen(argv[2], "wb")) == 0){
+        perror("fopen");
+        return 3;
+    }
+    while ((c = fgetc(ifp)) != EOF){
+        fputc(c, ofp);
+    }
+    if(fclose(ifp) != 0) {
+        perror("fclose");
+        return 4;
+    }
+    if(fclose(ofp) != 0){
+        perror("fclose");
+        return 5;
+    }
+    return 0;
+}
+```
 
-- `perror` is used to print a system error message to stderr.
 
-  - It only works if a call to a library function fails & that function sets `errno` (you can think of `errno` as  a global intger variable, when certain function fail, they store an error number into it.)
 
-- `filename` is just a string. Need to careful when using Windows:
+-   The first thing a program should do is check whether if it's invoked correctly *ef. correct number of arguments & arguments are valid*
+-   Handle failure cases first to reduce resting
 
-  ef. `"C:\newfile.txt"`    `"C:\\\newfile.txt"`
 
-  - `\n` can be interpreted as newline.
 
-- `mode` is the open mode. 
+##### There are 3 indicators associated with a stream
 
-  - 12 different modes divided into 2 groups of 6: 
+1.  end-of-file indicator
 
-    6 text modes & 6 binary modes.
+2.  error indicator 
 
-  Note: No difference between text &  binary modes in UNIX (ef. Linux, MacOS)
+    ###### /* the `clearerr` function clears these 2 indicators */
 
-  - Text modes:
+3.  file position indicator*
 
-    `"r"`    open for reading (file must exist)
+    ###### /* indicates our current location */
 
-    `"r+"`  open for both reading & writing (file must exist)
 
-    `"w"`	create or truncate file for writing
 
-    `"w+"`  create or truncate file for both reading & writing
+### 3 functions that use the file position indicator: 
 
-    `"a"`    create or open file for writing, always writing at the end.
+-   `ftell` - returns our current location
+-   `rewind`, `fseek` - change our current location
 
-    `"a+"`  create or open file for reading & writing, always writing at the end.
 
-  - Corresponding binary modes: 
 
-    `"rb"`, `"rb+" === "r+b"`, `"wb"`, `"wb+" === "w+b"`, `"ab"`, `"ab+" === "a+b"`
+#### ftell 
 
-  - *text* vs *binary* mode in Windows:
+​	`long ftell(FILE *);`
 
-    ​                     **file content**                **C Program**
+-   returns the number of bytes from the beginning of the file
 
-    Text mode: `'\r'` `'\n'`    <----->  `'\n'`
+-   ```c
+    ef.
+    long pos;
+    if((pos = ftell(fp)) == -1) { /* ftell failed */ }
+    	perror("ftell");
+    	/* additional error-handling if needed */
+    }
+    ef. calling ftell(stdin) with stdin associated with keyboard input will fail.
+    ```
 
-    ​	                                  x     <----->  x    (all other characters)
+    
 
-    - Special handling of newline character in text mode in Windows.
+#### rewind, fseek 
+
+```c
+void rewind(FILE *); /* go back to beginning of the file */
+int fseek(FILE *, long, int); 
+/* long: offset, 
+** int: whense
+** - 3 possible values
+**		SEEK_SET: relative to beginning
+**		SEEK_CUR: relative to current location
+** 		SEEK_END: relative to end
+*/
+
+ep. 
+    fseek(fp, 10, SEEK_SET); /* move to 10 bytes from the beginning of the file */
+	fseek(fp, 10, SEEK_CUR); /* move forward 10 bytes from the current position */
+    fseek(fp, -10, SEEK_CUR); /* move backward 10 bytes from the current position */
+```
+
+-   Can we move past the end of a file? It depeneds on the operating system. It's fine on MacOS & Linux.
+-   We cannot move past the beginning of a file.
+-   Note that fseek can file; if. `fseek(stdin)` fails when stdin is keyboard input
+
+```c
+if(fseek(fp, offset, whence) != 0) { /* fseek failed */
+	perror("fseek");
+	/* additional error-handling if needed */
+}
+```
+
+
+
+### `fflush`: used to flush output
+
+​	`fflush(fp);`
+
+Note: stdout is typically line-buffered; a message printed to the console via stdout may not show immediately on the screen if there is no newline character. 
+
+
+

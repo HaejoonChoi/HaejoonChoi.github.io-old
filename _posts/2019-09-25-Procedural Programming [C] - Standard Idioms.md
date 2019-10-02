@@ -122,4 +122,29 @@ FILE *fp; /* fp = file pointer */
 
 
 
-### 
+### Closing a file
+
+This disassociate the stream with the file.
+
+#### Standard idiom to close a file 
+
+```c
+if (fclose(fp) != 0) { /* fclose failed */ 
+	perror("fclose");
+	/* additional error-handling if needed */
+}
+```
+
+
+
+### functions that use the file position indicator
+
+#### Standard idiom for `fseek`
+
+```c
+if(fseek(fp, offset, whence) != 0) { /* fseek failed */
+	perror("fseek");
+	/* additional error-handling if needed */
+}
+```
+
