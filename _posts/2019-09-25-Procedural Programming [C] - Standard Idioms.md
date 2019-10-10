@@ -148,3 +148,17 @@ if(fseek(fp, offset, whence) != 0) { /* fseek failed */
 }
 ```
 
+
+
+## Flow Control
+
+### Standard idiom to process an array backwards
+
+```c
+T a[N]; /* T: type, N: some positive integer */
+size_t i;
+for (i = N; i > 0; i--) {
+    /* process a[i-1] */
+}
+```
+

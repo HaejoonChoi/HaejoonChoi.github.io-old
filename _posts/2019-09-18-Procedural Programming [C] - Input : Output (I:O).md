@@ -1,6 +1,4 @@
 ---
-
-
 layout: post
 
 
@@ -23,93 +21,93 @@ img: # Add image post (optional)
 
 tags:  # add tag
 
----
 
+---
 
 # Input / Output (I/O)
 
-- ###### I / O is performed via streams.
+-   ###### I / O is performed via streams.
 
-- ###### 3 streams are available when our program starts:
+-   ###### 3 streams are available when our program starts:
 
-  1. `stdin` (standard input): associated with keyboard input by default
-  
-  2. `stdout` (standard output): associated with console output by default
+    1.  `stdin` (standard input): associated with keyboard input by default
 
-  3. `stderr` (standard error): associated with console output by default
+    2.  `stdout` (standard output): associated with console output by default
 
-     (Type: FILE *)
-  
-  - **Convention**: Regular messages should be printed to stdout,
-  
-    ​						error messages should be printed to stderr. 
+    3.  `stderr` (standard error): associated with console output by default
 
-- We can redirect the I/O to go to different places (I/O redirection)
+        (Type: FILE *)
 
-- The default associations of stdin, stdout and stderr can be changed using I/O redirection
+    -   **Convention**: Regular messages should be printed to stdout,
 
-- I/O redirection is provided by the shell and is not specific to C.
+        ​						error messages should be printed to stderr. 
 
-  ```shell
-  $ ./a <input >output 2>errors
-  $: shell prompt
-  <: redirects stdin
-  >: redirects stdout
-  2> redirects dtderr
-  input, output, errors: file names
-  ```
+-   We can redirect the I/O to go to different places (I/O redirection)
 
-  
+-   The default associations of stdin, stdout and stderr can be changed using I/O redirection
+
+-   I/O redirection is provided by the shell and is not specific to C.
+
+    ```shell
+    $ ./a <input >output 2>errors
+    $: shell prompt
+    <: redirects stdin
+    >: redirects stdout
+    2> redirects dtderr
+    input, output, errors: file names
+    ```
+
+    
 
 ## Output (printf / fprintf / sprintf)
 
-- printf: always prints to stdout
-- fprintf: can specify the stream (FILE *) to print to via the first argument (extra one argument: where to print)
-- sprintf: prints to a "string" specified by the first argument
+-   printf: always prints to stdout
+-   fprintf: can specify the stream (FILE *) to print to via the first argument (extra one argument: where to print)
+-   sprintf: prints to a "string" specified by the first argument
 
 
 
-- Example
+-   Example
 
-  ```c
-  1) 	int m = 1, n = 2;
-  		printf("The sum of %d and %d is %d\n", m, n, m+n);
-  		// first argument: format string, %d: conversion specification (from bit pattern to text)
-  		>> The sum of 1 and 2 is 3
-  ```
+    ```c
+    1) 	int m = 1, n = 2;
+    		printf("The sum of %d and %d is %d\n", m, n, m+n);
+    		// first argument: format string, %d: conversion specification (from bit pattern to text)
+    		>> The sum of 1 and 2 is 3
+    ```
 
-- output: data item -> text, input: text -> data item (internally)
+-   output: data item -> text, input: text -> data item (internally)
 
-- In the general case, there can be 5 components in the conversion specification. 
+-   In the general case, there can be 5 components in the conversion specification. 
 
-  ```c
-  2) 	long double x = 12.345;
-  		printf("%-8.2Lf", x);
-  		// '-'	: flag (left adjusted)	(optional)
-  		// '8'	: minimum field width 	(optional)
-  		// '.2'	: precision 						(optional)
-  		// 'L'	: modifier 							(optional)
-  		// 'f'	: specifier 						(the only maindatory parameter)
-  
-  		>> 12.35### (# is space)
-        
-      int n = 12;
-  		printf("%05d", n);		
-  		>> 00012
-  ```
+    ```c
+    2) 	long double x = 12.345;
+    		printf("%-8.2Lf", x);
+    		// '-'	: flag (left adjusted)	(optional)
+    		// '8'	: minimum field width 	(optional)
+    		// '.2'	: precision 						(optional)
+    		// 'L'	: modifier 							(optional)
+    		// 'f'	: specifier 						(the only maindatory parameter)
+    
+    		>> 12.35### (# is space)
+          
+        int n = 12;
+    		printf("%05d", n);		
+    		>> 00012
+    ```
 
-  
+    
 
 ### Some common specifications
 
-- `%d`: int in base 10
-- `%x, %X`: unsigned int in base 16
-- `%o`: unsigned int in base 8
-- `%s`: string
-- `%ld`: long in base 10
-- `%u`: unsigned int in base 10
-- `%lu`: unsigned long in base 10
-- `%f`: float / double
+-   `%d`: int in base 10
+-   `%x, %X`: unsigned int in base 16
+-   `%o`: unsigned int in base 8
+-   `%s`: string
+-   `%ld`: long in base 10
+-   `%u`: unsigned int in base 10
+-   `%lu`: unsigned long in base 10
+-   `%f`: float / double
 
 
 
@@ -123,7 +121,7 @@ sprintf:
 	sprintf(s, "%05d", n); /* s contains "00012" */
 ```
 
-- Note: the caller n responsible for ensuring that the array of chars is large enough to store the string.
+-   Note: the caller n responsible for ensuring that the array of chars is large enough to store the string.
 
 
 
@@ -135,48 +133,48 @@ sprintf:
 
 Example.
 
-- ```c
-  int c;
-  while ((c = getchar()) != EOF) // EOF: End-of-file
-  	putchar(c);
-  ```
+-   ```c
+    int c;
+    while ((c = getchar()) != EOF) // EOF: End-of-file
+    	putchar(c);
+    ```
 
-- `getchar()` needs a character from `stdin` and returns it.
+-   `getchar()` needs a character from `stdin` and returns it.
 
-- However, it may fail (ef. there is no more input); in this case, it returns a value denoted by EOF.
+-   However, it may fail (ef. there is no more input); in this case, it returns a value denoted by EOF.
 
-- EOF must have a value different from all possible characters. Hence c is an `int`.
+-   EOF must have a value different from all possible characters. Hence c is an `int`.
 
-- Technically, `getchar()` returns an `unsigned char` cast as an `int`.
+-   Technically, `getchar()` returns an `unsigned char` cast as an `int`.
 
-  Note: the `char` type in C can be `signed` or `unsigned`. 
+    Note: the `char` type in C can be `signed` or `unsigned`. 
 
-  ##### Assuming an 8-bit char type, 
+    ##### Assuming an 8-bit char type, 
 
-  - -128 ~ 127 `signed char`
-  - 0 ~ 255 `unsigned char`
+    -   -128 ~ 127 `signed char`
+    -   0 ~ 255 `unsigned char`
 
-- `((c = getchar()) != EOF)` 
+-   `((c = getchar()) != EOF)` 
 
-  - brackets for `c = getchar()` are necessary 
+    -   brackets for `c = getchar()` are necessary 
 
-  - `c = getchar() != EOF` is equivalent to `c = (getchar() != EOF)`
+    -   `c = getchar() != EOF` is equivalent to `c = (getchar() != EOF)`
 
-  - `!=` has higher precednece than `=`
+    -   `!=` has higher precednece than `=`
 
-    
+        
 
 ### What is end-of-file?	
 
-- It is a **condition**. For a physical file, it becomes true when we try to **read past the last byte in the file**. 
+-   It is a **condition**. For a physical file, it becomes true when we try to **read past the last byte in the file**. 
 
-- For Keyboard input, we can generate the end-of-file condition **by pressing certain keys. (Ctl-d)**
+-   For Keyboard input, we can generate the end-of-file condition **by pressing certain keys. (Ctl-d)**
 
-- redirection of input `(<)`
+-   redirection of input `(<)`
 
-  `./a.out < input`
+    `./a.out < input`
 
-- Keyboard input is line-buffered: our program does not get the input until the user presses the 'Enter' key.
+-   Keyboard input is line-buffered: our program does not get the input until the user presses the 'Enter' key.
 
 
 
@@ -202,29 +200,29 @@ while ((c = getchar()) != EOF)
 
 **Examples**
 
-1. Displaying a file in all uppercase
+1.  Displaying a file in all uppercase
 
-   ```c
-   while((c = getchar()) != EOF) 
-   	putchar(toupper(c));
-   ```
+    ```c
+    while((c = getchar()) != EOF) 
+    	putchar(toupper(c));
+    ```
 
-   
+    
 
-2. Counting the number of line in a file
+2.  Counting the number of line in a file
 
-   Basically, no. of lines = no. of newline characters
+    Basically, no. of lines = no. of newline characters
 
-   ```c
-   size_t nlines = 0;
-   while((c = getchar()) != EOF) 
-   	if(c == '\n')
-       ++nlines;
-   	/* print nlines */
-   ```
+    ```c
+    size_t nlines = 0;
+    while((c = getchar()) != EOF) 
+    	if(c == '\n')
+        ++nlines;
+    	/* print nlines */
+    ```
 
-   - **Minor problem**: the last line in the file may not have a newline character.
-   - **Solution**: Don't count the end of a line. Count the beginning of a line
+    -   **Minor problem**: the last line in the file may not have a newline character.
+    -   **Solution**: Don't count the end of a line. Count the beginning of a line
 
 
 
@@ -232,13 +230,13 @@ while ((c = getchar()) != EOF)
 
 ​			`fgets(buffer, bufsize, stream)`
 
-- Keeps reading characters from `stream` & storing them into `buffer` until either
-  1. End-of-file becomes true, or
-  2. `bufsize - 1` characters have been stored into `buffer`, or
-  3. a newline character has been stored into `buffer`.
-- In all 3 cases, `fgets` appends a null character.
-- `fgets` returns the null pointer on end-of-file with no charaters read. 
-- The null pointer can be denoted by `NULL` or simply by `0`.
+-   Keeps reading characters from `stream` & storing them into `buffer` until either
+    1.  End-of-file becomes true, or
+    2.  `bufsize - 1` characters have been stored into `buffer`, or
+    3.  a newline character has been stored into `buffer`.
+-   In all 3 cases, `fgets` appends a null character.
+-   `fgets` returns the null pointer on end-of-file with no charaters read. 
+-   The null pointer can be denoted by `NULL` or simply by `0`.
 
 
 
@@ -261,7 +259,7 @@ fgets(s, 10, stdin);
 // s['l', 'd', '\n', '\0', 'o', ' ', 'w', 'o', 'r', '\0'];
 ```
 
-- **Lesson**: use a large buffer !! 
+-   **Lesson**: use a large buffer !! 
 
 ```c
 char line[1024];
@@ -284,9 +282,9 @@ while (fgets(line, LINESIZE,stdin)) /* as long as we can read a line */
 
 ## Reading a data item (scanf / fscanf / sscanf)
 
-- `scanf`: reads from stdin
-- `fscanf`: reads from a file that we can specify via the 1st argument
-- `sscanf`: reads from a string that we specify via the 1st argument
+-   `scanf`: reads from stdin
+-   `fscanf`: reads from a file that we can specify via the 1st argument
+-   `sscanf`: reads from a string that we specify via the 1st argument
 
 
 
@@ -300,7 +298,7 @@ scanf("%d", &n); // &: address-of operator
 // for input, the original address of n should be used, which is &n
 ```
 
-- Need to check return value of `scanf`!!
+-   Need to check return value of `scanf`!!
 
 
 
@@ -396,9 +394,9 @@ printf("%d\n", sum);
 
 3 steps:
 
-1. Open the file
-2. Perform I/O (on the stream returned by opening the file)
-3. Close the file (close the stream, actually)
+1.  Open the file
+2.  Perform I/O (on the stream returned by opening the file)
+3.  Close the file (close the stream, actually)
 
 
 
@@ -419,49 +417,49 @@ FILE *fp; /* fp = file pointer */
 
 `perror` is used to print a system error message to stderr.
 
-- It only works if a call to a library function fails & that function sets `errno` (you can think of `errno` as  a global intger variable, when certain function fail, they store an error number into it.)
+-   It only works if a call to a library function fails & that function sets `errno` (you can think of `errno` as  a global intger variable, when certain function fail, they store an error number into it.)
 
 `filename` is just a string. Need to careful when using Windows:
 
 if. `"C:\newfile.txt"`    `"C:\\\newfile.txt"`
 
-- `\n` can be interpreted as newline.
+-   `\n` can be interpreted as newline.
 
 `mode` is the open mode. 
 
-- 12 different modes divided into 2 groups of 6: 
+-   12 different modes divided into 2 groups of 6: 
 
-  6 text modes & 6 binary modes.
+    6 text modes & 6 binary modes.
 
 Note: No difference between text &  binary modes in UNIX (ef. Linux, MacOS)
 
-- Text modes:
+-   Text modes:
 
-  `"r"`    open for reading (file must exist)
+    `"r"`    open for reading (file must exist)
 
-  `"r+"`  open for both reading & writing (file must exist)
+    `"r+"`  open for both reading & writing (file must exist)
 
-  `"w"`	create or truncate file for writing
+    `"w"`	create or truncate file for writing
 
-  `"w+"`  create or truncate file for both reading & writing
+    `"w+"`  create or truncate file for both reading & writing
 
-  `"a"`    create or open file for writing, always writing at the end.
+    `"a"`    create or open file for writing, always writing at the end.
 
-  `"a+"`  create or open file for reading & writing, always writing at the end.
+    `"a+"`  create or open file for reading & writing, always writing at the end.
 
-- Corresponding binary modes: 
+-   Corresponding binary modes: 
 
-  `"rb"`, `"rb+" === "r+b"`, `"wb"`, `"wb+" === "w+b"`, `"ab"`, `"ab+" === "a+b"`
+    `"rb"`, `"rb+" === "r+b"`, `"wb"`, `"wb+" === "w+b"`, `"ab"`, `"ab+" === "a+b"`
 
-- *text* vs *binary* mode in Windows:
+-   *text* vs *binary* mode in Windows:
 
-  ​                     **file content**                **C Program**
+    ​                     **file content**                **C Program**
 
-  Text mode: `'\r'` `'\n'`    <----->  `'\n'`
+    Text mode: `'\r'` `'\n'`    <----->  `'\n'`
 
-  ​	                                  x     <----->  x    (all other characters)
+    ​	                                  x     <----->  x    (all other characters)
 
-  - Special handling of newline character in text mode in Windows.
+    -   Special handling of newline character in text mode in Windows.
 
 
 
@@ -483,7 +481,6 @@ if (fclose(fp) != 0) { /* fclose failed */
 ### Reading & Writing to a file
 
 -   `fprintf`, `fputc`
-
 -   `fscanf`, `fgets`, `fgetc`
 
 ```c
