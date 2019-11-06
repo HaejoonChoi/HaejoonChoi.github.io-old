@@ -141,7 +141,7 @@ struct record a[] = {
     ##### Example
 
     ```c
-    				int n; /* n: a variable name */
+    int n; /* n: a variable name */
     typedef int n; /* n: another name for the int type */
     /* after this typedef, n a; creates a variable of type int */
     
@@ -205,7 +205,8 @@ void print_record(record *r) {
     printf("%s : %s %s : %d\n", r->id, r->name.first, r->name.last, r->score);
 }
 int main(void) {
-    record a[] = {{"a12345678", {"homer", "simpson"}, 25},
+    record a[] = {
+                  {"a12345678", {"homer", "simpson"}, 25},
                   {"a11111111", {"monty", "burns"}, 99}
                  };
     size_t i;
