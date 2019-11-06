@@ -25,6 +25,12 @@ tags:  # add tag
 
 ---
 
+
+
+##  Table of Contents
+
+[TOC]
+
 # Chapter 12. Memory Management 
 
 -   in the textbook "C Primer Plus", p.511–564 
@@ -159,6 +165,7 @@ void * calloc(size_t, size_t){}
 // prototype //
 void * realloc(void *p, size_t, newsize);
 /* p = pointer to original block */
+
 ```
 
 
@@ -168,6 +175,7 @@ void * realloc(void *p, size_t, newsize);
     ```c
     realloc(p, 0) ≣ free(p)
     realloc(0, size) ≣ malloc(size)
+    
     ```
 
 ex. 
@@ -187,6 +195,7 @@ if((tmp = realloc(p, 20 * sizeof(int))) == 0) {
 }
 /* free memory when done */
 free(p);
+
 ```
 
 
@@ -204,4 +213,136 @@ free(p);
 ### **figure... add it later**
 
 
+
+## Examples: storing lines of texts
+
+### Version 1.
+
+```c
+#define LINESIZE 100
+#define NLINES 10000
+
+char lines[NLINES][LINESIZE]; /* 20 array: lines is an array
+																	of NLINES objects each an array
+                                  of LINESIZE chars */
+size_t i, j;
+for (i = 0; i < NLINES; i++) {
+  if(!fgets(lines[i], LINESIZE, stdin))
+    break; /* if you can't read a line, break */
+}
+
+/* example: print back the lines */
+for (j = 0; j < i; j++) 
+  printf("%s", lines[j]);
+
+```
+
+-   Disadvantage: not flexible; may be wasting memory
+
+
+
+### Version 2. 
+
+-   Maximum number of lines is still fixed
+
+-   but each line is dynamically–allocated + just fits the input line
+
+    
+
+<img src="../assets/img/dynamic_lines.png" alt="dynamic_lines" style="zoom:25%;" />
+
+
+
+```c
+#define NLINES 10000
+#define BUFSIZE 1024
+
+char *lines[NLINES];
+char buffer[BUFSIZE];
+size_t i, j;
+
+for(i = 0; i < NLINES; i++) {
+  if(!fgets(buffer, BUFSIZE, stdin))
+    break;
+  lines[i] = malloc(strlen(buffer) + 1); /* +1 for nulll char */
+  if(lines[i] == 0) {
+    fprintf(stderr, "malloc failed\n");
+    break;
+  }
+  strcpy(lines[i], buffer);
+}
+
+/* example: print back the lines */
+for(j = 0; j < i; j++) {
+  printf("%s", lines[j]);
+}
+
+/* deallocate memory when done */
+for (j = 0; j < i; j++)
+  free(lines[j]);
+
+
+
+```
+
+
+
+### Version 3
+
+-   Remove the restriction to at most NLINES lines
+
+    
+
+    <img src="../assets/img/Version3.png" style="zoom:50%;" />
+
+    
+
+```c
+#define BUFSIZE 1024
+#define BLOCK 10
+char **lines;
+char buffer[BUFSIZE];
+size_t nalloc, nused;
+
+lines = 0; /* initializing lines as a null pointer */
+nalloc = nused = 0;
+
+/* as long as we can read a line */
+while(fgets(buffer, BUFSIZE, stdin)) {
+  
+	/* if we have used up the allocated pointers */
+  if(nused == nalloc) {
+    
+    /* add BLOCK more pointers */
+    char ** tmp = realloc(lines, (nalloc + BLOCK) * sizeof(char*)); 
+    if(temp == 0) {
+      fprintf(stderr, "realloc failed\n");
+      break;
+    }
+    lines = tmp;
+    nalloc += BLOCK;
+  }
+  
+  /* there are unused pointers */
+  lines[nused] = malloc(strlen(buffer) + 1);
+  if(lines[nused] == 0) {
+    fprintf(stderr, "malloc failed\n");
+    break;
+  }
+  strcpy(lines[nused++], buffer);
+}
+
+/* example: printing back the lines */
+for (i = 0; i < nused; i++){
+  printf("%s", lines[i]);
+}
+
+/* deallocate memory when done */
+for (i = 0; i < nused; i++)
+  free(lines[i]);
+free(lines);
+
+
+
+```
 
