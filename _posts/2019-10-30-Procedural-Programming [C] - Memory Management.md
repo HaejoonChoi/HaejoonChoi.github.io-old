@@ -202,7 +202,7 @@ free(p);
 
 -   Assuming realloc succeeds, there are still 2 possibilities: 
 
-![realloc](../assets/img/realloc.png)
+<img src="../assets/img/realloc.png" alt="realloc" style="zoom: 17%;" />
 
 
 
