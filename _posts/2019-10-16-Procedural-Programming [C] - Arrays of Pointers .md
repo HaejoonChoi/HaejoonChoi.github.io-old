@@ -33,7 +33,7 @@ ex.
 char *a[] = {"hello", "world"};
 printf("%s", a[0]); /* hello */
 printf("%s", a[1]); /* world */
-printf("%c", a[0][0]); /* c */
+printf("%c", a[0][0]); /* h */
 printf("%c", a[1][2]); /* r */
 ```
 

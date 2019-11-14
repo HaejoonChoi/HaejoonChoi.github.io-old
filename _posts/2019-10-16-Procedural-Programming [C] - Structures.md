@@ -25,6 +25,12 @@ tags:  # add tag
 
 ---
 
+
+
+[TOC]
+
+
+
 # Structures
 
 -   these allow us to pack data of different types together
@@ -63,11 +69,9 @@ ex. what is `sizeof (struct grade)`? >= 14 bytes
 
 -   The compiler is allowed to add padding between members and at the end of a structure due to alignment requirements (if you align elements to the odd-# or multiple-of-4 addresses, it could be faster for cpu to reach to the addresses in some architectures).
 
--   
+-   ##### Possible layout of struct grade in memory
 
-    ##### Possible layout of struct grade in memory
-
-![Group 1](../assets/img/Group 1.png)
+<img src="../assets/img/Group 1.png" alt="Group 1" style="zoom: 33%;" />
 
 (assuming alignment at 4-bytes in boundary)
 
