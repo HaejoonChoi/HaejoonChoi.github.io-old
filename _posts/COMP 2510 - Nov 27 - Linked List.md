@@ -29,4 +29,4 @@ int main (void) {
 1.  Adding data to a list
 2.  Removing data from a list
 3.  Traversing a list
-4.  Detroying a list
+4.  Detroying a list!(/Users/haejoonchoi/Downloads/Insert 7 at the beginning.png)
