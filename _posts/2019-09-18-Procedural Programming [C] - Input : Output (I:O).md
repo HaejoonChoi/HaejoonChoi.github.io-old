@@ -3,7 +3,7 @@ layout: post
 
 
 
-title: Procedural Programming [C] - Input / Output (I/O)
+title: Procedural Programming [C] - Input, Output (IO)
 
 
 
