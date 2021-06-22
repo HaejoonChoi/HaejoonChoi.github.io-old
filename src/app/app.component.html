@@ -1,60 +1,92 @@
 <div class="container">
   <div class="row mt-5 justify-content-center">
     <div class="col" id="img-column">
-      <img src="assets/img/profile_pic.jpeg" />
+      <img src="assets/img/profile_pic.jpeg" class="mb-3" />
       <div class="title my-4 text-uppercase">Haejoon Choi</div>
+      <div class="fs-3 text-secondary">Software Developer</div>
     </div>
 
-    <div class="row my-3 justify-content-center">
-      <div class="col-2">
+    <div id="social-links" class="row my-3 justify-content-center">
+      <!-- TODO resume PDF is going to be added later -->
+      <!-- <div class="col-2">
         <button mat-icon-button>
-          <i
+          <a
             class="bi bi-file-earmark-person fs-3"
             role="img"
             aria-label="Resume"
-          ></i>
+            href="/src/assets/haejoonchoi_resume.pdf"
+          ></a>
         </button>
-      </div>
+      </div> -->
       <div class="col-2">
         <button mat-icon-button>
-          <i class="bi bi-facebook fs-3" role="img" aria-label="Facebook"></i>
+          <a
+            class="bi bi-facebook fs-3"
+            role="img"
+            aria-label="Facebook"
+            href="{{ CONSTANTS.facebookUrl }}"
+          ></a>
         </button>
       </div>
 
       <div class="col-2">
         <button mat-icon-button>
-          <i class="bi bi-instagram fs-3" role="img" aria-label="Instagram"></i>
+          <a
+            class="bi bi-instagram fs-3"
+            role="img"
+            aria-label="Instagram"
+            href="{{ CONSTANTS.instagramUrl }}"
+          ></a>
         </button>
       </div>
       <div class="col-2">
         <button mat-icon-button>
-          <i class="bi bi-linkedin fs-3" role="img" aria-label="GitHub"></i>
+          <a
+            class="bi bi-linkedin fs-3"
+            role="img"
+            aria-label="Linkedin"
+            href="{{ CONSTANTS.linkedInUrl }}"
+          ></a>
         </button>
       </div>
       <div class="col-2">
         <button mat-icon-button>
-          <i class="bi bi-envelope fs-3" role="img" aria-label="Email"></i>
+          <a
+            class="bi bi-github fs-3"
+            role="img"
+            aria-label="GitHub"
+            href="{{ CONSTANTS.githubUrl }}"
+          ></a>
+        </button>
+      </div>
+      <div class="col-2">
+        <button mat-icon-button>
+          <a
+            class="bi bi-envelope fs-3"
+            role="img"
+            aria-label="Email"
+            href="{{ CONSTANTS.emailUrl }}"
+          ></a>
         </button>
       </div>
     </div>
   </div>
   <hr />
-  <div class="row my-3 justify-content-center">
-    <div class="col-2">
-      <button mat-button>Home</button>
+  <div id="menu-buttons" class="row my-3 justify-content-center">
+    <div class="col-3">
+      <button mat-button (click)=onHomeClicked()>Home</button>
     </div>
-    <div class="col-2">
-      <button mat-button>Projects</button>
+    <div class="col-3">
+      <button mat-button (click)=onProjectsClicked()>Projects</button>
     </div>
-    <div class="col-2">
+    <div class="col-3">
       <button mat-button>Insta</button>
     </div>
   </div>
+
   <hr />
-  <ul>
-    Hi I'm Haejoon Choi, Software Developer. I studied Mechanical Engineering in
-    South Korea 🇰🇷 and now I am living in Vancouver 🇨🇦.
-  </ul>
+
+  <router-outlet></router-outlet>
 
   <hr />
 </div>
