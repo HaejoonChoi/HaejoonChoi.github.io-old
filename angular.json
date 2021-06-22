@@ -127,12 +127,7 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "baseHref": "https://github.com/HaejoonChoi/haejoonchoi.github.io/",
-            "name": "Haejoon Website",
-            "email": "haejoonchoi@outlook.com"
-          }
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
