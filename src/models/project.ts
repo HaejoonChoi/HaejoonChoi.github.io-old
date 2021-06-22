@@ -53,7 +53,7 @@ export const exampleProjects: Project[] = [
     startDate: 'Apr 2019',
     endDate: 'Jul 2019',
     skills: ['Angular', 'NodeJS', 'PostgreSQL', 'Azure Web Service'],
-    imgPath: 'abalone_project.jpeg',
+    imgPath: 'restyle.jpg',
     descriptions: [
       '• In a team of 5 made an interactive web application called ReStyle using agile methodology.',
       '• The app is aiming to promote people to swap and reuse their clothes and reduce wasted material and energy.',

@@ -1,14 +1,18 @@
-<div class="container">
-  <div class="row mt-5 justify-content-center">
-    <div class="col" id="img-column">
-      <img src="assets/img/profile_pic.jpeg" class="mb-3" />
-      <div class="title my-4 text-uppercase">Haejoon Choi</div>
-      <div class="fs-3 text-secondary">Software Developer</div>
-    </div>
+<body>
+  <div class="container">
+    <div class="row mt-5 justify-content-center">
+      <div class="col" id="img-column">
+        <img
+          src="assets/img/profile_pic.jpeg"
+          class="mb-3 profile-picture-elevation"
+        />
+        <div class="title my-4 text-uppercase">Haejoon Choi</div>
+        <div class="fs-3 text-secondary">Software Developer</div>
+      </div>
 
-    <div id="social-links" class="row my-3 justify-content-center">
-      <!-- TODO resume PDF is going to be added later -->
-      <!-- <div class="col-2">
+      <div id="social-links" class="row my-3 justify-content-center">
+        <!-- TODO resume PDF is going to be added later -->
+        <!-- <div class="col-2">
         <button mat-icon-button>
           <a
             class="bi bi-file-earmark-person fs-3"
@@ -18,75 +22,82 @@
           ></a>
         </button>
       </div> -->
-      <div class="col-2">
-        <button mat-icon-button>
-          <a
-            class="bi bi-facebook fs-3"
-            role="img"
-            aria-label="Facebook"
-            href="{{ CONSTANTS.facebookUrl }}"
-          ></a>
-        </button>
-      </div>
+        <div class="col-2">
+          <button mat-icon-button>
+            <a
+              class="bi bi-facebook fs-3"
+              role="img"
+              aria-label="Facebook"
+              href="{{ CONSTANTS.facebookUrl }}"
+            ></a>
+          </button>
+        </div>
 
-      <div class="col-2">
-        <button mat-icon-button>
-          <a
-            class="bi bi-instagram fs-3"
-            role="img"
-            aria-label="Instagram"
-            href="{{ CONSTANTS.instagramUrl }}"
-          ></a>
-        </button>
-      </div>
-      <div class="col-2">
-        <button mat-icon-button>
-          <a
-            class="bi bi-linkedin fs-3"
-            role="img"
-            aria-label="Linkedin"
-            href="{{ CONSTANTS.linkedInUrl }}"
-          ></a>
-        </button>
-      </div>
-      <div class="col-2">
-        <button mat-icon-button>
-          <a
-            class="bi bi-github fs-3"
-            role="img"
-            aria-label="GitHub"
-            href="{{ CONSTANTS.githubUrl }}"
-          ></a>
-        </button>
-      </div>
-      <div class="col-2">
-        <button mat-icon-button>
-          <a
-            class="bi bi-envelope fs-3"
-            role="img"
-            aria-label="Email"
-            href="{{ CONSTANTS.emailUrl }}"
-          ></a>
-        </button>
+        <div class="col-2">
+          <button mat-icon-button>
+            <a
+              class="bi bi-instagram fs-3"
+              role="img"
+              aria-label="Instagram"
+              href="{{ CONSTANTS.instagramUrl }}"
+            ></a>
+          </button>
+        </div>
+        <div class="col-2">
+          <button mat-icon-button>
+            <a
+              class="bi bi-linkedin fs-3"
+              role="img"
+              aria-label="Linkedin"
+              href="{{ CONSTANTS.linkedInUrl }}"
+            ></a>
+          </button>
+        </div>
+        <div class="col-2">
+          <button mat-icon-button>
+            <a
+              class="bi bi-github fs-3"
+              role="img"
+              aria-label="GitHub"
+              href="{{ CONSTANTS.githubUrl }}"
+            ></a>
+          </button>
+        </div>
+        <div class="col-2">
+          <button mat-icon-button>
+            <a
+              class="bi bi-envelope fs-3"
+              role="img"
+              aria-label="Email"
+              href="{{ CONSTANTS.emailUrl }}"
+            ></a>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <hr />
-  <div id="menu-buttons" class="row my-3 justify-content-center">
-    <div class="col-3">
-      <button mat-button (click)=onHomeClicked()>Home</button>
-    </div>
-    <div class="col-3">
-      <button mat-button (click)=onProjectsClicked()>Projects</button>
-    </div>
-    <div class="col-3">
+    <hr />
+    <div id="menu-buttons" class="row my-3 justify-content-center">
+      <div class="col-3">
+        <button mat-button (click)="onHomeClicked()">Home</button>
+      </div>
+      <div class="col-3">
+        <button mat-button (click)="onProjectsClicked()">Projects</button>
+      </div>
+      <!-- TODO Maybe some other features
+      <div class="col-3">
       <button mat-button>Insta</button>
+    </div> -->
     </div>
+
+    <hr />
+
+    <router-outlet></router-outlet>
+
+    <hr />
+
+    <footer class="footer row">
+      <div class="col left mx-3">© Haejoon Choi</div>
+      <div class="col right mx-3">Built with Angular</div>
+    </footer>
   </div>
-
-  <hr />
-
-  <router-outlet></router-outlet>
-
-  <hr />
-</div>
+</body>

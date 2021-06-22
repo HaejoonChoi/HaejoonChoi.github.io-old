@@ -1,4 +1,4 @@
-<mat-card class="my-2 project-card" *ngFor="let project of projects">
+<mat-card class="my-2 project-card card-elevation" *ngFor="let project of projects">
   <mat-card-header>
     <mat-icon class="card-icon" mat-card-avatar>{{project.icon}}</mat-icon>
     <mat-card-title>{{ project.title }}</mat-card-title>
@@ -6,6 +6,7 @@
   </mat-card-header>
   <img
     mat-card-image
+    class="mat-elevation-z2"
     src="assets/img/{{ project.imgPath }}"
     alt="Photo of the project"
   />
