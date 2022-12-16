@@ -20,4 +20,8 @@ export class AppComponent {
   public onProjectsClicked(): void {
     this.router.navigateByUrl('/projects');
   }
+
+  public onBlogClicked(): void {
+    this.router.navigateByUrl('/blog');
+  }
 }
