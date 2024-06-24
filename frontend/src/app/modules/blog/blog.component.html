@@ -1,0 +1,6 @@
+<!-- angular material component as a wrapper -->
+<mat-card>
+  <mat-card-title>Blog</mat-card-title>
+  <mat-card-content>
+    <markdown *ngFor="let blog of blogs" [src]="blog"></markdown>
+  </mat-card-content>
